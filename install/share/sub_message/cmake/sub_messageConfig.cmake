@@ -66,7 +66,7 @@ endif()
 set(sub_message_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
-if("TRUE" STREQUAL "TRUE")
+if("FALSE" STREQUAL "TRUE")
   set(sub_message_SOURCE_PREFIX /home/ubuntu/packages/src/sub_message)
   set(sub_message_DEVEL_PREFIX /home/ubuntu/packages/devel)
   set(sub_message_INSTALL_PREFIX "")
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(sub_message_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/ubuntu/packages/devel/include " STREQUAL " ")
+if(NOT "include " STREQUAL " ")
   set(sub_message_INCLUDE_DIRS "")
-  set(_include_dirs "/home/ubuntu/packages/devel/include")
+  set(_include_dirs "include")
   foreach(idir ${_include_dirs})
     if(IS_ABSOLUTE ${idir} AND IS_DIRECTORY ${idir})
       set(include ${idir})
@@ -103,7 +103,7 @@ if(NOT "/home/ubuntu/packages/devel/include " STREQUAL " ")
         message(FATAL_ERROR "Project 'sub_message' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  Ask the maintainer 'Tyler Burnham <tylerburnham42@gmail.com>, Andrew Buff <ubuntu@todo.todo>' to fix it.")
       endif()
     else()
-      message(FATAL_ERROR "Project 'sub_message' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/ubuntu/packages/src/sub_message/${idir}'.  Ask the maintainer 'Tyler Burnham <tylerburnham42@gmail.com>, Andrew Buff <ubuntu@todo.todo>' to fix it.")
+      message(FATAL_ERROR "Project 'sub_message' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/ubuntu/packages/install/${idir}'.  Ask the maintainer 'Tyler Burnham <tylerburnham42@gmail.com>, Andrew Buff <ubuntu@todo.todo>' to fix it.")
     endif()
     _list_append_unique(sub_message_INCLUDE_DIRS ${include})
   endforeach()
@@ -122,7 +122,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/ubuntu/packages/devel/lib;/home/ubuntu/packages/devel/lib;/opt/ros/jade/lib)
+    foreach(path /home/ubuntu/packages/install/lib;/home/ubuntu/packages/devel/lib;/opt/ros/jade/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
