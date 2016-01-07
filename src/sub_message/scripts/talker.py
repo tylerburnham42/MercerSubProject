@@ -8,8 +8,10 @@ from sub_message.srv import *
 
 def talker(opperations,direction,distance,sent_time):
    rospy.wait_for_service('modify_message_stack')
+   print("fire")
    try:
        pass_message  = rospy.ServiceProxy('modify_message_stack', SubMessage)
+       print("Fire2")
        responce = pass_message(opperations,direction,distance,sent_time)
        return responce.responce
    except rospy.ServiceException, e:
@@ -19,10 +21,12 @@ def usage():
    return "Format Opperation Direction Distance"
 
 if __name__ == "__main__":
+   rospy.init_node('Time', anonymous=True)
    opperation = ""
    direction = ""
    distance = 0
-   sent_time = datetime.datetime.now().time()
+   #sent_time = rospy.Time()
+   sent_time = rospy.Time.now()
    if len(sys.argv) >= 1:
        opperation = sys.argv[1]
        direction = sys.argv[2]
@@ -32,4 +36,5 @@ if __name__ == "__main__":
        print usage()
        sys.exit(1)
    print "Sending Command"
+   print (opperation,direction,distance,sent_time)
    print talker(opperation,direction,distance,sent_time)

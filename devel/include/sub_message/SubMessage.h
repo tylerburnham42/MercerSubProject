@@ -40,7 +40,7 @@ template<>
 struct MD5Sum< ::sub_message::SubMessage > {
   static const char* value()
   {
-    return "b4e4bb66768d6b1bb6165ba4f214a3d8";
+    return "1cd8427867f185156c31422a9538a726";
   }
 
   static const char* value(const ::sub_message::SubMessage&) { return value(); }

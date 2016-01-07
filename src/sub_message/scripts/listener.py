@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 import rospy
-import collections
+#import collections
+import Queue
 import datetime
 from std_msgs.msg import String
 from sub_message.srv import *
@@ -23,25 +24,27 @@ from sub_message.srv import *
     # spin() simply keeps python from exiting until this node is stopped
    #rospy.spin()
 
-class sub_message():
+class opperation():
     def __init__(self,opperation,direction,distance,sent_time):
         self.opperation = opperation
         self.direction = direction
         self.distance = distance
         self.sent_time = sent_time
-        self.received_time = received_time
+        self.received_time = rospy.Time.now()
+    def __repr__(self):
+        return self.opperation
 
-message_queue = collections.deque()
+message_queue = Queue.PriorityQueue()
 
 def modify_sub_message_queue(req):
-    message = sub_message()
-    message.opperation = req.opperation
-    message.direction = req.direction
-    message.distance = req.distance
-    message.sent_time = req.sent_time
-    message.received_time = datetime.now()
-    message_queue.extend(message)
-    print(message_queue)
+    opp = opperation(req.opperation,req.direction,req.distance,req.sent_time)
+    #opp.opperation = req.opperation
+    #opp.direction = req.direction
+    #opp.distance = req.distance
+    #opp.sent_time = req.sent_time
+    #pp.received_time = datetime.now()
+    message_queue.put(opp)
+    print(message_queue.queue)
     return "Done"
 
 def listener():
@@ -51,4 +54,5 @@ def listener():
     rospy.spin()
 
 if __name__ == '__main__':
+    #rospy.init_node('Time', anonymous=True)
     listener()

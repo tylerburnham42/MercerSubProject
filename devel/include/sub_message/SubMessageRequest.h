@@ -24,16 +24,31 @@ struct SubMessageRequest_
   typedef SubMessageRequest_<ContainerAllocator> Type;
 
   SubMessageRequest_()
-    : message()  {
+    : opperation()
+    , direction()
+    , distance(0)
+    , sent_time()  {
     }
   SubMessageRequest_(const ContainerAllocator& _alloc)
-    : message(_alloc)  {
+    : opperation(_alloc)
+    , direction(_alloc)
+    , distance(0)
+    , sent_time()  {
     }
 
 
 
-   typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _message_type;
-  _message_type message;
+   typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _opperation_type;
+  _opperation_type opperation;
+
+   typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _direction_type;
+  _direction_type direction;
+
+   typedef int64_t _distance_type;
+  _distance_type distance;
+
+   typedef ros::Time _sent_time_type;
+  _sent_time_type sent_time;
 
 
 
@@ -112,12 +127,12 @@ struct MD5Sum< ::sub_message::SubMessageRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "5f003d6bcc824cbd51361d66d8e4f76c";
+    return "e2421f828b0652a589c949370ff4f040";
   }
 
   static const char* value(const ::sub_message::SubMessageRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x5f003d6bcc824cbdULL;
-  static const uint64_t static_value2 = 0x51361d66d8e4f76cULL;
+  static const uint64_t static_value1 = 0xe2421f828b0652a5ULL;
+  static const uint64_t static_value2 = 0x89c949370ff4f040ULL;
 };
 
 template<class ContainerAllocator>
@@ -136,7 +151,10 @@ struct Definition< ::sub_message::SubMessageRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "string message\n\
+    return "string opperation\n\
+string direction\n\
+int64 distance\n\
+time sent_time\n\
 ";
   }
 
@@ -155,7 +173,10 @@ namespace serialization
   {
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
-      stream.next(m.message);
+      stream.next(m.opperation);
+      stream.next(m.direction);
+      stream.next(m.distance);
+      stream.next(m.sent_time);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER;
@@ -174,8 +195,14 @@ struct Printer< ::sub_message::SubMessageRequest_<ContainerAllocator> >
 {
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::sub_message::SubMessageRequest_<ContainerAllocator>& v)
   {
-    s << indent << "message: ";
-    Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.message);
+    s << indent << "opperation: ";
+    Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.opperation);
+    s << indent << "direction: ";
+    Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.direction);
+    s << indent << "distance: ";
+    Printer<int64_t>::stream(s, indent + "  ", v.distance);
+    s << indent << "sent_time: ";
+    Printer<ros::Time>::stream(s, indent + "  ", v.sent_time);
   }
 };
 
