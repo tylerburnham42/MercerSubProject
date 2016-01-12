@@ -7,19 +7,29 @@
 ;//! \htmlinclude SubMessage-request.msg.html
 
 (cl:defclass <SubMessage-request> (roslisp-msg-protocol:ros-message)
-  ((opperation
-    :reader opperation
-    :initarg :opperation
+  ((command
+    :reader command
+    :initarg :command
     :type cl:string
     :initform "")
-   (direction
-    :reader direction
-    :initarg :direction
-    :type cl:string
-    :initform "")
-   (distance
-    :reader distance
-    :initarg :distance
+   (x
+    :reader x
+    :initarg :x
+    :type cl:integer
+    :initform 0)
+   (y
+    :reader y
+    :initarg :y
+    :type cl:integer
+    :initform 0)
+   (z
+    :reader z
+    :initarg :z
+    :type cl:integer
+    :initform 0)
+   (t
+    :reader t
+    :initarg :t
     :type cl:integer
     :initform 0)
    (sent_time
@@ -37,20 +47,30 @@
   (cl:unless (cl:typep m 'SubMessage-request)
     (roslisp-msg-protocol:msg-deprecation-warning "using old message class name sub_message-srv:<SubMessage-request> is deprecated: use sub_message-srv:SubMessage-request instead.")))
 
-(cl:ensure-generic-function 'opperation-val :lambda-list '(m))
-(cl:defmethod opperation-val ((m <SubMessage-request>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader sub_message-srv:opperation-val is deprecated.  Use sub_message-srv:opperation instead.")
-  (opperation m))
+(cl:ensure-generic-function 'command-val :lambda-list '(m))
+(cl:defmethod command-val ((m <SubMessage-request>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader sub_message-srv:command-val is deprecated.  Use sub_message-srv:command instead.")
+  (command m))
 
-(cl:ensure-generic-function 'direction-val :lambda-list '(m))
-(cl:defmethod direction-val ((m <SubMessage-request>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader sub_message-srv:direction-val is deprecated.  Use sub_message-srv:direction instead.")
-  (direction m))
+(cl:ensure-generic-function 'x-val :lambda-list '(m))
+(cl:defmethod x-val ((m <SubMessage-request>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader sub_message-srv:x-val is deprecated.  Use sub_message-srv:x instead.")
+  (x m))
 
-(cl:ensure-generic-function 'distance-val :lambda-list '(m))
-(cl:defmethod distance-val ((m <SubMessage-request>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader sub_message-srv:distance-val is deprecated.  Use sub_message-srv:distance instead.")
-  (distance m))
+(cl:ensure-generic-function 'y-val :lambda-list '(m))
+(cl:defmethod y-val ((m <SubMessage-request>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader sub_message-srv:y-val is deprecated.  Use sub_message-srv:y instead.")
+  (y m))
+
+(cl:ensure-generic-function 'z-val :lambda-list '(m))
+(cl:defmethod z-val ((m <SubMessage-request>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader sub_message-srv:z-val is deprecated.  Use sub_message-srv:z instead.")
+  (z m))
+
+(cl:ensure-generic-function 't-val :lambda-list '(m))
+(cl:defmethod t-val ((m <SubMessage-request>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader sub_message-srv:t-val is deprecated.  Use sub_message-srv:t instead.")
+  (t m))
 
 (cl:ensure-generic-function 'sent_time-val :lambda-list '(m))
 (cl:defmethod sent_time-val ((m <SubMessage-request>))
@@ -58,19 +78,43 @@
   (sent_time m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <SubMessage-request>) ostream)
   "Serializes a message object of type '<SubMessage-request>"
-  (cl:let ((__ros_str_len (cl:length (cl:slot-value msg 'opperation))))
+  (cl:let ((__ros_str_len (cl:length (cl:slot-value msg 'command))))
     (cl:write-byte (cl:ldb (cl:byte 8 0) __ros_str_len) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 8) __ros_str_len) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 16) __ros_str_len) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 24) __ros_str_len) ostream))
-  (cl:map cl:nil #'(cl:lambda (c) (cl:write-byte (cl:char-code c) ostream)) (cl:slot-value msg 'opperation))
-  (cl:let ((__ros_str_len (cl:length (cl:slot-value msg 'direction))))
-    (cl:write-byte (cl:ldb (cl:byte 8 0) __ros_str_len) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 8) __ros_str_len) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 16) __ros_str_len) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 24) __ros_str_len) ostream))
-  (cl:map cl:nil #'(cl:lambda (c) (cl:write-byte (cl:char-code c) ostream)) (cl:slot-value msg 'direction))
-  (cl:let* ((signed (cl:slot-value msg 'distance)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 18446744073709551616) signed)))
+  (cl:map cl:nil #'(cl:lambda (c) (cl:write-byte (cl:char-code c) ostream)) (cl:slot-value msg 'command))
+  (cl:let* ((signed (cl:slot-value msg 'x)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 18446744073709551616) signed)))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 32) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 40) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 48) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 56) unsigned) ostream)
+    )
+  (cl:let* ((signed (cl:slot-value msg 'y)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 18446744073709551616) signed)))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 32) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 40) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 48) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 56) unsigned) ostream)
+    )
+  (cl:let* ((signed (cl:slot-value msg 'z)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 18446744073709551616) signed)))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 32) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 40) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 48) unsigned) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 56) unsigned) ostream)
+    )
+  (cl:let* ((signed (cl:slot-value msg 't)) (unsigned (cl:if (cl:< signed 0) (cl:+ signed 18446744073709551616) signed)))
     (cl:write-byte (cl:ldb (cl:byte 8 0) unsigned) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 8) unsigned) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 16) unsigned) ostream)
@@ -98,17 +142,9 @@
       (cl:setf (cl:ldb (cl:byte 8 8) __ros_str_len) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 16) __ros_str_len) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 24) __ros_str_len) (cl:read-byte istream))
-      (cl:setf (cl:slot-value msg 'opperation) (cl:make-string __ros_str_len))
+      (cl:setf (cl:slot-value msg 'command) (cl:make-string __ros_str_len))
       (cl:dotimes (__ros_str_idx __ros_str_len msg)
-        (cl:setf (cl:char (cl:slot-value msg 'opperation) __ros_str_idx) (cl:code-char (cl:read-byte istream)))))
-    (cl:let ((__ros_str_len 0))
-      (cl:setf (cl:ldb (cl:byte 8 0) __ros_str_len) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 8) __ros_str_len) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 16) __ros_str_len) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 24) __ros_str_len) (cl:read-byte istream))
-      (cl:setf (cl:slot-value msg 'direction) (cl:make-string __ros_str_len))
-      (cl:dotimes (__ros_str_idx __ros_str_len msg)
-        (cl:setf (cl:char (cl:slot-value msg 'direction) __ros_str_idx) (cl:code-char (cl:read-byte istream)))))
+        (cl:setf (cl:char (cl:slot-value msg 'command) __ros_str_idx) (cl:code-char (cl:read-byte istream)))))
     (cl:let ((unsigned 0))
       (cl:setf (cl:ldb (cl:byte 8 0) unsigned) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 8) unsigned) (cl:read-byte istream))
@@ -118,7 +154,37 @@
       (cl:setf (cl:ldb (cl:byte 8 40) unsigned) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 48) unsigned) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 56) unsigned) (cl:read-byte istream))
-      (cl:setf (cl:slot-value msg 'distance) (cl:if (cl:< unsigned 9223372036854775808) unsigned (cl:- unsigned 18446744073709551616))))
+      (cl:setf (cl:slot-value msg 'x) (cl:if (cl:< unsigned 9223372036854775808) unsigned (cl:- unsigned 18446744073709551616))))
+    (cl:let ((unsigned 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 32) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 40) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 48) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 56) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:slot-value msg 'y) (cl:if (cl:< unsigned 9223372036854775808) unsigned (cl:- unsigned 18446744073709551616))))
+    (cl:let ((unsigned 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 32) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 40) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 48) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 56) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:slot-value msg 'z) (cl:if (cl:< unsigned 9223372036854775808) unsigned (cl:- unsigned 18446744073709551616))))
+    (cl:let ((unsigned 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 32) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 40) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 48) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 56) unsigned) (cl:read-byte istream))
+      (cl:setf (cl:slot-value msg 't) (cl:if (cl:< unsigned 9223372036854775808) unsigned (cl:- unsigned 18446744073709551616))))
     (cl:let ((__sec 0) (__nsec 0))
       (cl:setf (cl:ldb (cl:byte 8 0) __sec) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 8) __sec) (cl:read-byte istream))
@@ -139,29 +205,33 @@
   "sub_message/SubMessageRequest")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<SubMessage-request>)))
   "Returns md5sum for a message object of type '<SubMessage-request>"
-  "1cd8427867f185156c31422a9538a726")
+  "7d28c6987997ca8d19b07ed2713e8a66")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'SubMessage-request)))
   "Returns md5sum for a message object of type 'SubMessage-request"
-  "1cd8427867f185156c31422a9538a726")
+  "7d28c6987997ca8d19b07ed2713e8a66")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<SubMessage-request>)))
   "Returns full string definition for message of type '<SubMessage-request>"
-  (cl:format cl:nil "string opperation~%string direction~%int64 distance~%time sent_time~%~%~%"))
+  (cl:format cl:nil "string command~%int64 x~%int64 y~%int64 z~%int64 t~%time sent_time~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'SubMessage-request)))
   "Returns full string definition for message of type 'SubMessage-request"
-  (cl:format cl:nil "string opperation~%string direction~%int64 distance~%time sent_time~%~%~%"))
+  (cl:format cl:nil "string command~%int64 x~%int64 y~%int64 z~%int64 t~%time sent_time~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <SubMessage-request>))
   (cl:+ 0
-     4 (cl:length (cl:slot-value msg 'opperation))
-     4 (cl:length (cl:slot-value msg 'direction))
+     4 (cl:length (cl:slot-value msg 'command))
+     8
+     8
+     8
      8
      8
 ))
 (cl:defmethod roslisp-msg-protocol:ros-message-to-list ((msg <SubMessage-request>))
   "Converts a ROS message object to a list"
   (cl:list 'SubMessage-request
-    (cl:cons ':opperation (opperation msg))
-    (cl:cons ':direction (direction msg))
-    (cl:cons ':distance (distance msg))
+    (cl:cons ':command (command msg))
+    (cl:cons ':x (x msg))
+    (cl:cons ':y (y msg))
+    (cl:cons ':z (z msg))
+    (cl:cons ':t (t msg))
     (cl:cons ':sent_time (sent_time msg))
 ))
 ;//! \htmlinclude SubMessage-response.msg.html
@@ -215,10 +285,10 @@
   "sub_message/SubMessageResponse")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<SubMessage-response>)))
   "Returns md5sum for a message object of type '<SubMessage-response>"
-  "1cd8427867f185156c31422a9538a726")
+  "7d28c6987997ca8d19b07ed2713e8a66")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'SubMessage-response)))
   "Returns md5sum for a message object of type 'SubMessage-response"
-  "1cd8427867f185156c31422a9538a726")
+  "7d28c6987997ca8d19b07ed2713e8a66")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<SubMessage-response>)))
   "Returns full string definition for message of type '<SubMessage-response>"
   (cl:format cl:nil "string responce~%~%~%~%"))

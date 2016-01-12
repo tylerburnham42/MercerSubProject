@@ -25,24 +25,21 @@ from sub_message.srv import *
    #rospy.spin()
 
 class opperation():
-    def __init__(self,opperation,direction,distance,sent_time):
-        self.opperation = opperation
-        self.direction = direction
-        self.distance = distance
+    def __init__(self,command,x,y,z,t,sent_time):
+        self.command = command
+        self.x = x
+        self.y = y
+        self.z = z
+        self.t = t
         self.sent_time = sent_time
         self.received_time = rospy.Time.now()
     def __repr__(self):
-        return self.opperation
+        return self.command
 
 message_queue = Queue.PriorityQueue()
 
 def modify_sub_message_queue(req):
-    opp = opperation(req.opperation,req.direction,req.distance,req.sent_time)
-    #opp.opperation = req.opperation
-    #opp.direction = req.direction
-    #opp.distance = req.distance
-    #opp.sent_time = req.sent_time
-    #pp.received_time = datetime.now()
+    opp = opperation(req.command,req.x,req.y,req.z,req.t,req.sent_time)
     message_queue.put(opp)
     print(message_queue.queue)
     return "Done"
@@ -54,5 +51,4 @@ def listener():
     rospy.spin()
 
 if __name__ == '__main__':
-    #rospy.init_node('Time', anonymous=True)
     listener()

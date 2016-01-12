@@ -1,6 +1,8 @@
-string opperation
-string direction
-int64 distance
-time sent_time 
+string command
+int64 x
+int64 y
+int64 z
+int64 t
+time sent_time
 ---
 string responce

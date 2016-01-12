@@ -24,28 +24,38 @@ struct SubMessageRequest_
   typedef SubMessageRequest_<ContainerAllocator> Type;
 
   SubMessageRequest_()
-    : opperation()
-    , direction()
-    , distance(0)
+    : command()
+    , x(0)
+    , y(0)
+    , z(0)
+    , t(0)
     , sent_time()  {
     }
   SubMessageRequest_(const ContainerAllocator& _alloc)
-    : opperation(_alloc)
-    , direction(_alloc)
-    , distance(0)
+    : command(_alloc)
+    , x(0)
+    , y(0)
+    , z(0)
+    , t(0)
     , sent_time()  {
     }
 
 
 
-   typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _opperation_type;
-  _opperation_type opperation;
+   typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _command_type;
+  _command_type command;
 
-   typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _direction_type;
-  _direction_type direction;
+   typedef int64_t _x_type;
+  _x_type x;
 
-   typedef int64_t _distance_type;
-  _distance_type distance;
+   typedef int64_t _y_type;
+  _y_type y;
+
+   typedef int64_t _z_type;
+  _z_type z;
+
+   typedef int64_t _t_type;
+  _t_type t;
 
    typedef ros::Time _sent_time_type;
   _sent_time_type sent_time;
@@ -127,12 +137,12 @@ struct MD5Sum< ::sub_message::SubMessageRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "e2421f828b0652a589c949370ff4f040";
+    return "8906b0cfa1ef827adab34e302bed54a3";
   }
 
   static const char* value(const ::sub_message::SubMessageRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xe2421f828b0652a5ULL;
-  static const uint64_t static_value2 = 0x89c949370ff4f040ULL;
+  static const uint64_t static_value1 = 0x8906b0cfa1ef827aULL;
+  static const uint64_t static_value2 = 0xdab34e302bed54a3ULL;
 };
 
 template<class ContainerAllocator>
@@ -151,9 +161,11 @@ struct Definition< ::sub_message::SubMessageRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "string opperation\n\
-string direction\n\
-int64 distance\n\
+    return "string command\n\
+int64 x\n\
+int64 y\n\
+int64 z\n\
+int64 t\n\
 time sent_time\n\
 ";
   }
@@ -173,9 +185,11 @@ namespace serialization
   {
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
-      stream.next(m.opperation);
-      stream.next(m.direction);
-      stream.next(m.distance);
+      stream.next(m.command);
+      stream.next(m.x);
+      stream.next(m.y);
+      stream.next(m.z);
+      stream.next(m.t);
       stream.next(m.sent_time);
     }
 
@@ -195,12 +209,16 @@ struct Printer< ::sub_message::SubMessageRequest_<ContainerAllocator> >
 {
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::sub_message::SubMessageRequest_<ContainerAllocator>& v)
   {
-    s << indent << "opperation: ";
-    Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.opperation);
-    s << indent << "direction: ";
-    Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.direction);
-    s << indent << "distance: ";
-    Printer<int64_t>::stream(s, indent + "  ", v.distance);
+    s << indent << "command: ";
+    Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.command);
+    s << indent << "x: ";
+    Printer<int64_t>::stream(s, indent + "  ", v.x);
+    s << indent << "y: ";
+    Printer<int64_t>::stream(s, indent + "  ", v.y);
+    s << indent << "z: ";
+    Printer<int64_t>::stream(s, indent + "  ", v.z);
+    s << indent << "t: ";
+    Printer<int64_t>::stream(s, indent + "  ", v.t);
     s << indent << "sent_time: ";
     Printer<ros::Time>::stream(s, indent + "  ", v.sent_time);
   }
