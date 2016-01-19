@@ -36,13 +36,19 @@ class opperation():
     def __repr__(self):
         return self.command
 
-message_queue = Queue.PriorityQueue()
+message_list = []
 
 def modify_sub_message_queue(req):
     opp = opperation(req.command,req.x,req.y,req.z,req.t,req.sent_time)
-    message_queue.put(opp)
-    print(message_queue.queue)
-    return "Done"
+    if(opp.command == "clear"):
+        while len(message_list) > 0: 
+            message_list.pop()
+    elif(opp.command == "skip"):
+        message_list.pop(0)
+    else:
+        message_list.append(opp)
+    print(message_list)
+    return str(message_list)
 
 def listener():
     rospy.init_node('sub_listen', anonymous=True)
