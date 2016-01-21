@@ -24,7 +24,7 @@ from sub_message.srv import *
     # spin() simply keeps python from exiting until this node is stopped
    #rospy.spin()
 
-class opperation():
+class operation():
     def __init__(self,command,x,y,z,t,sent_time):
         self.command = command
         self.x = x
@@ -39,7 +39,7 @@ class opperation():
 message_list = []
 
 def modify_sub_message_queue(req):
-    opp = opperation(req.command,req.x,req.y,req.z,req.t,req.sent_time)
+    opp = operation(req.command,req.x,req.y,req.z,req.t,req.sent_time)
     if(opp.command == "clear"):
         while len(message_list) > 0: 
             message_list.pop()
