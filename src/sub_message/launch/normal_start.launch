@@ -1,0 +1,8 @@
+<launch>
+  <node name="commander" pkg="sub_message" type="commander.py">
+  </node>
+  <node name="sub_listen" pkg="sub_message" type="listener.py">
+  </node>
+  <node name="rosserial" pkg="rosserial_python" type="serial_node.py" args="/dev/ttyACM0">
+  </node>
+</launch>
