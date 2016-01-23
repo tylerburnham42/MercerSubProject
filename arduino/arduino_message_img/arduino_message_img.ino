@@ -8,12 +8,13 @@
 
 ros::NodeHandle  nh;
 
-void messageCb( const std_msgs::String& message){
-  if(message.data[0] == 'A')
+void messageCb( const std_msgs::String& sub_message){
+  String message =  String(sub_message.data);
+  if(message == "ON")
   {
     digitalWrite(13, HIGH);
   }
-  else if(message.data[0] == 'B')
+  else if(message == "OFF")
   {
     digitalWrite(13, LOW);
   }

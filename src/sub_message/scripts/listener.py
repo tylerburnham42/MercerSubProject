@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import rospy
-#import collections
 import Queue
 import datetime
 from std_msgs.msg import String
@@ -52,8 +51,9 @@ def modify_sub_message_queue(req):
 
 def listener():
     rospy.init_node('sub_listen', anonymous=True)
-    service = rospy.Service("modify_message_stack", SubMessage, modify_sub_message_queue)
-    print("Init")
+    listen_service = rospy.Service("modify_message_stack", SubMessage, modify_sub_message_queue)
+    #rospy.init_node('sub_publish', anonymous=True)
+    #pub_service = rospy.Service("Current Command", 
     rospy.spin()
 
 if __name__ == '__main__':
