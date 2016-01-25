@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 import rospy
+import Queue
+import datetime
 from std_msgs.msg import String
 from sub_message.srv import *
 
@@ -21,14 +23,37 @@ from sub_message.srv import *
     # spin() simply keeps python from exiting until this node is stopped
    #rospy.spin()
 
-def modify_sub_message_stack(req):
-    print(req.message)
-    return "Done"
+class operation():
+    def __init__(self,command,x,y,z,t,sent_time):
+        self.command = command
+        self.x = x
+        self.y = y
+        self.z = z
+        self.t = t
+        self.sent_time = sent_time
+        self.received_time = rospy.Time.now()
+    def __repr__(self):
+        return self.command
+
+message_list = []
+
+def modify_sub_message_queue(req):
+    opp = operation(req.command,req.x,req.y,req.z,req.t,req.sent_time)
+    if(opp.command == "clear"):
+        while len(message_list) > 0: 
+            message_list.pop()
+    elif(opp.command == "skip"):
+        message_list.pop(0)
+    else:
+        message_list.append(opp)
+    print(message_list)
+    return str(message_list)
 
 def listener():
     rospy.init_node('sub_listen', anonymous=True)
-    service = rospy.Service("modify_message_stack", SubMessage, modify_sub_message_stack)
-    print("Fire")
+    listen_service = rospy.Service("modify_message_stack", SubMessage, modify_sub_message_queue)
+    #rospy.init_node('sub_publish', anonymous=True)
+    #pub_service = rospy.Service("Current Command", 
     rospy.spin()
 
 if __name__ == '__main__':
