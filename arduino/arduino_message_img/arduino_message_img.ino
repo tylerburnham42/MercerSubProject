@@ -5,18 +5,22 @@
 
 #include <ros.h>
 #include <std_msgs/String.h>
+#include <Servo.h> 
+
 
 ros::NodeHandle  nh;
+Servo myservo;
 
 void messageCb( const std_msgs::String& sub_message){
   String message =  String(sub_message.data);
+
   if(message == "ON")
   {
-    digitalWrite(13, HIGH);
+    myservo.write(0);
   }
   else if(message == "OFF")
   {
-    digitalWrite(13, LOW);
+    myservo.write(180);
   }
 }
 
@@ -24,7 +28,8 @@ ros::Subscriber<std_msgs::String> sub("arduino_move", &messageCb );
 
 void setup()
 { 
-  pinMode(13, OUTPUT);
+  myservo.attach(8);  // attaches the servo on pin 9 to the servo object 
+
   nh.initNode();
   nh.subscribe(sub);
 }
