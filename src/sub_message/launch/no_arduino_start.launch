@@ -3,6 +3,4 @@
   </node>
   <node name="sub_listen" pkg="sub_message" type="listener.py">
   </node>
-  <node name="rosserial" pkg="rosserial_python" type="serial_node.py" args="/dev/ttyACM1">
-  </node>
 </launch>

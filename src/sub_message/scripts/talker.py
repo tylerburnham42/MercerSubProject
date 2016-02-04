@@ -6,13 +6,11 @@ import datetime
 from std_msgs.msg import String
 from sub_message.srv import *
 
-def talker(command,x,y,z,t,sent_time):
+def talker(command,x,y,z,t):
    rospy.wait_for_service('modify_message_stack')
-   print("fire")
    try:
        pass_message  = rospy.ServiceProxy('modify_message_stack', SubMessage)
-       print("Fire2")
-       responce = pass_message(command,x,y,z,t,sent_time)
+       responce = pass_message(command,x,y,z,t)
        return responce.responce
    except rospy.ServiceException, e:
        print "Service call failed: %s"%e
@@ -50,7 +48,7 @@ if __name__ == "__main__":
        command = arr[0]
    elif(arr[0] == "stop"):
        command = arr[0]
-   elif(arr[0] == "skip"):
+   elif(arr[0] == "next"):
        command = arr[0]
 
    if(command == ""):
@@ -58,4 +56,4 @@ if __name__ == "__main__":
        sys.exit(1)
 
    print (command,x,y,z,t)
-   print talker(command,x,y,z,t,sent_time)
+   print talker(command,x,y,z,t)

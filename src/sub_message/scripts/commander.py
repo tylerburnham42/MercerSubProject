@@ -1,31 +1,56 @@
 #!/usr/bin/env python
 
 import rospy
+import time
 from std_msgs.msg import String
 from sub_message.srv import *
 
-command = ""
-new_command = ""
+message = "stop 0 0 0 0"
+new_message = "stop 0 0 0 0"
+
+publish = "0"
 
 def callback (data):
-    global new_command
-    new_command = data.data
+    global new_message
+    new_message = data.data
     
+def talker(command,x,y,z,t):
+   rospy.wait_for_service('modify_message_stack')
+   try:
+       pass_message  = rospy.ServiceProxy('modify_message_stack', SubMessage)
+       responce = pass_message(command,x,y,z,t)
+   except rospy.ServiceException, e:
+       print "Service call failed: %s"%e
 
 
 def looper():
     rospy.init_node('commander', anonymous=True)
     pub = rospy.Publisher("arduino_move", String, queue_size=10)
     sub = rospy.Subscriber("commander",String, callback)
-    rate = rospy.Rate(5) 
-    global command
-    global new_command
+    rate = rospy.Rate(5)
+    global publish
+    global new_message
+    global message
+
+    current_time = time.time()
     while not rospy.is_shutdown():
-        print(command + " " + new_command)
-        if(new_command != command):
-            command = new_command
-            rospy.loginfo(command)
-            pub.publish(command)
+        print(message + " " + new_message)
+        if(new_message != message):
+            current_time = time.time()
+            message = new_message
+            command = message.split()
+            if(command[0] == "movt"):
+                publish = (str(command[1]))
+            elif ( command[0] == "stop"):
+                publish = "0"
+            #rospy.loginfo(command)
+            #pub.publish(command)
+        
+        if(message.split()[0] == "movt" and
+            int(time.time() - current_time) >= int(message.split()[4])):
+                talker("next",0,0,0,0)
+            
+        pub.publish(str(publish))
         rate.sleep()
 
 
