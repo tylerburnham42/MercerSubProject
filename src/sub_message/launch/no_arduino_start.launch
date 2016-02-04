@@ -1,0 +1,6 @@
+<launch>
+  <node name="commander" pkg="sub_message" type="commander.py">
+  </node>
+  <node name="sub_listen" pkg="sub_message" type="listener.py">
+  </node>
+</launch>

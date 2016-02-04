@@ -39,7 +39,7 @@ def modify_sub_message_queue(req):
             opp  = message_list.pop(0)
             current = str(opp)
         else:
-            current = operation("stop",0,0,0,0)
+            current = str(operation("stop",0,0,0,0))
     else:
         message_list.append(opp)
     print(message_list)
