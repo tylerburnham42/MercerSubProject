@@ -54,7 +54,7 @@ if __name__ == "__main__":
        x = ConvertPercentThrust(arr[1])
        y = ConvertPercentThrust(arr[2])
        z = ConvertPercentThrust(arr[3])
-       t = int(arr[4]) #passed as an absolute value
+       t = float(arr[4]) #passed as an absolute value
    elif(arr[0] == "movd"):
        command = arr[0]
        x = int(arr[1])
@@ -64,6 +64,9 @@ if __name__ == "__main__":
        command = arr[0]
    elif(arr[0] == "stop"):
        command = arr[0]
+   elif(arr[0] == "pause"):
+       command = arr[0]
+       t = float(arr[1])
    elif(arr[0] == "next"):
        command = arr[0]
 

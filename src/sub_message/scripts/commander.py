@@ -27,7 +27,7 @@ def looper():
     rospy.init_node('commander', anonymous=True)
     pub = rospy.Publisher("arduino_move", String, queue_size=10)
     sub = rospy.Subscriber("commander",String, callback)
-    rate = rospy.Rate(5)
+    rate = rospy.Rate(1)
     global publish
     global new_message
     global message
@@ -41,15 +41,15 @@ def looper():
             command = message.split()
             if(command[0] == "movt"):
                 publish = (str(command[1]))
-            elif ( command[0] == "stop"):
+            elif ( command[0] == "stop" or command[0] == "pause"):
                 publish = "0"
             #rospy.loginfo(command)
             #pub.publish(command)
         
-        if(message.split()[0] == "movt" and
-            int(time.time() - current_time) >= int(message.split()[4])):
+	split_message = message.split()
+        if(time.time()-current_time >= float(split_message[4])):
+            if(split_message[0] == "movt" or split_message[0] == "pause"):
                 talker("next",0,0,0,0)
-            
         pub.publish(str(publish))
         rate.sleep()
 
