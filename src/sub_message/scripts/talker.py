@@ -19,18 +19,19 @@ def usage():
    return "Format Opperation Direction Distance"
 
 def ConvertPercentThrust(percent):
+   percent = float(percent)
    if abs(percent) > 100:
       return -1 # error value
    elif percent > 0:
-      min_forward_thrust = 110
+      min_forward_thrust = 90
       max_forward_thrust = 180
       diff = max_forward_thrust - min_forward_thrust
       return int(percent * diff + min_forward_thrust)
    else:
-      min_reverse_thrust = 0
-      max_reverse_thrust = 80
+      min_reverse_thrust = 90
+      max_reverse_thrust = 0
       diff = max_reverse_thrust - min_reverse_thrust
-      return int((-percent) * diff + min_forward_thrust)
+      return int((-percent) * diff + min_reverse_thrust)
    
 
 if __name__ == "__main__":
@@ -53,7 +54,7 @@ if __name__ == "__main__":
        x = ConvertPercentThrust(arr[1])
        y = ConvertPercentThrust(arr[2])
        z = ConvertPercentThrust(arr[3])
-       t = arr[4] #passed as an absolute value
+       t = int(arr[4]) #passed as an absolute value
    elif(arr[0] == "movd"):
        command = arr[0]
        x = int(arr[1])
