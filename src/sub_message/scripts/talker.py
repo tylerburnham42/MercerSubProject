@@ -18,6 +18,21 @@ def talker(command,x,y,z,t):
 def usage():
    return "Format Opperation Direction Distance"
 
+def ConvertPercentThrust(percent):
+   if abs(percent) > 100:
+      return -1 # error value
+   elif percent > 0:
+      min_forward_thrust = 110
+      max_forward_thrust = 180
+      diff = max_forward_thrust - min_forward_thrust
+      return int(percent * diff + min_forward_thrust)
+   else:
+      min_reverse_thrust = 0
+      max_reverse_thrust = 80
+      diff = max_reverse_thrust - min_reverse_thrust
+      return int((-percent) * diff + min_forward_thrust)
+   
+
 if __name__ == "__main__":
    rospy.init_node('Time', anonymous=True)
    command = ""
@@ -35,10 +50,10 @@ if __name__ == "__main__":
    arr = line.replace(",","").split(" ")
    if(arr[0] == "movt"):
        command = arr[0]
-       x = int(arr[1])
-       y = int(arr[2])
-       z = int(arr[3])
-       t = int(arr[4])
+       x = ConvertPercentThrust(arr[1])
+       y = ConvertPercentThrust(arr[2])
+       z = ConvertPercentThrust(arr[3])
+       t = arr[4] #passed as an absolute value
    elif(arr[0] == "movd"):
        command = arr[0]
        x = int(arr[1])
