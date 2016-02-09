@@ -1,8 +1,7 @@
 string command
-int64 x
-int64 y
-int64 z
-int64 t
-time sent_time
+int32 x
+int32 y
+int32 z
+float32 t
 ---
 string responce

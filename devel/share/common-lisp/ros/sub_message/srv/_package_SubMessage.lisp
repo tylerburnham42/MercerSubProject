@@ -9,8 +9,6 @@
           Z
           T-VAL
           T
-          SENT_TIME-VAL
-          SENT_TIME
           RESPONCE-VAL
           RESPONCE
 ))
