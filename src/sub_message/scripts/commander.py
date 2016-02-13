@@ -4,6 +4,7 @@ import rospy
 import time
 from std_msgs.msg import String
 from sub_message.srv import *
+from sub_message.msg import arduino_msg
 
 message = "stop 0 0 0 0"
 new_message = "stop 0 0 0 0"
@@ -25,16 +26,19 @@ def talker(command,x,y,z,t):
 
 def looper():
     rospy.init_node('commander', anonymous=True)
-    pub = rospy.Publisher("arduino_move", String, queue_size=10)
+    pub = rospy.Publisher("arduino_move", arduino_msg, queue_size=10)
     sub = rospy.Subscriber("commander",String, callback)
     rate = rospy.Rate(1)
-    global publish
+    publish = arduino_msg()
     global new_message
     global message
 
     current_time = time.time()
     while not rospy.is_shutdown():
         print(message + " " + new_message)
+
+	#If the message has changed, 
+        #update the message passed to the arduino
         if(new_message != message):
             current_time = time.time()
             message = new_message
@@ -46,11 +50,15 @@ def looper():
             #rospy.loginfo(command)
             #pub.publish(command)
         
+        #Publish 'Next' command To advance the queue
+        #If the time is passed the duration
 	split_message = message.split()
         if(time.time()-current_time >= float(split_message[4])):
             if(split_message[0] == "movt" or split_message[0] == "pause"):
                 talker("next",0,0,0,0)
-        pub.publish(str(publish))
+
+        #Publish the command to the motors 
+        pub.publish(publish)
         rate.sleep()
 
 
