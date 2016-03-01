@@ -1,6 +1,0 @@
-string opperation
-string direction
-int64 distance
-time sent_time 
----
-string responce
