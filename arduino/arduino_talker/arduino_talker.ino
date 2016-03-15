@@ -1,7 +1,7 @@
 #include <ros.h>
 #include <std_msgs/String.h>
 #include <Servo.h>
-
+#include<sub_message/arduino_msg.h>
 ros::NodeHandle nh;
 
 
@@ -9,26 +9,42 @@ std_msgs::String str_msg;
 ros::Publisher chatter("arduino_publish", &str_msg);
 char charBuf[50];
 
-Servo myservo;
+Servo xLeftServo;
+Servo xRightServo;
+Servo yFrontServo;
+Servo yBackServo;
+Servo zTopServo;
+Servo zBottomServo;
 
-void messageCb( const std_msgs::String& sub_message){
-  String message = String(sub_message.data);
-  myservo.write(message.toInt());
+void messageCb( const sub_message::arduino_msg& sub_message){
+  String message = String(sub_message.xLeft);
+
+  xLeftServo.write(sub_message.xLeft);
+  xRightServo.write(sub_message.xRight);
+  yFrontServo.write(sub_message.yFront);
+  yBackServo.write(sub_message.yBack);
+  zTopServo.write(sub_message.zTop);
+  zBottomServo.write(sub_message.zBottom);
   
   //Write what it recieved    
   String(message).toCharArray(charBuf,50);
   str_msg.data = charBuf;
 }
 
-ros::Subscriber<std_msgs::String> sub("arduino_move", &messageCb );
+ros::Subscriber<sub_message::arduino_msg> sub("arduino_move", &messageCb );
 
 void setup()
 { 
-  myservo.attach(8);
+  xLeftServo.attach(2);
+  xRightServo.attach(8);
+  yFrontServo.attach(13);
+  yBackServo.attach(7);
+  zTopServo.attach(12);
+  zBottomServo.attach(4);
+  
   nh.initNode();
   nh.subscribe(sub);
   nh.advertise(chatter);
-  str_msg.data = String("Setup").toCharArray(charBuf,50);
 }
 
 void loop()
