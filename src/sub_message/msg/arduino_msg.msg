@@ -1,6 +1,6 @@
-int32 frontLeft
-int32 frontMiddle
-int32 frontRight
-int32 backLeft
-int32 backMiddle
-int32 backRight
+int32 xLeft
+int32 xRight
+int32 yFront
+int32 yBack
+int32 zTop
+int32 zBottom

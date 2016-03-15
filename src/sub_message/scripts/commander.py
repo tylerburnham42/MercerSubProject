@@ -23,6 +23,15 @@ def talker(command,x,y,z,t):
    except rospy.ServiceException, e:
        print "Service call failed: %s"%e
 
+def createMsg(xLeft,xRight,yFront,yBack,zTop,zBottom):
+    msg = arduino_msg()
+    msg.xLeft = int(xLeft)
+    msg.xRight = int(xRight)
+    msg.yFront = int(yFront)
+    msg.yBack = int(yBack)
+    msg.zTop = int(zTop)
+    msg.zBottom = int(zBottom)
+    return msg
 
 def looper():
     rospy.init_node('commander', anonymous=True)
@@ -44,9 +53,11 @@ def looper():
             message = new_message
             command = message.split()
             if(command[0] == "movt"):
-                publish = (str(command[1]))
+                publish = createMsg(command[1],command[1],
+                                    command[2],command[2],
+                                    command[3],command[3])
             elif ( command[0] == "stop" or command[0] == "pause"):
-                publish = "0"
+                publish = createMsg(0,0,0,0,0,0)
             #rospy.loginfo(command)
             #pub.publish(command)
         
