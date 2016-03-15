@@ -16,12 +16,12 @@ def callback (data):
     new_message = data.data
     
 def talker(command,x,y,z,t):
-   rospy.wait_for_service('modify_message_stack')
-   try:
-       pass_message  = rospy.ServiceProxy('modify_message_stack', SubMessage)
-       responce = pass_message(command,x,y,z,t)
-   except rospy.ServiceException, e:
-       print "Service call failed: %s"%e
+    rospy.wait_for_service('modify_message_stack')
+    try:
+        pass_message  = rospy.ServiceProxy('modify_message_stack', SubMessage)
+        responce = pass_message(command,x,y,z,t)
+    except rospy.ServiceException, e:
+        print "Service call failed: %s"%e
 
 def createMsg(xLeft,xRight,yFront,yBack,zTop,zBottom):
     msg = arduino_msg()
@@ -46,7 +46,7 @@ def looper():
     while not rospy.is_shutdown():
         print(message + " " + new_message)
 
-	#If the message has changed, 
+        #If the message has changed, 
         #update the message passed to the arduino
         if(new_message != message):
             current_time = time.time()
@@ -55,7 +55,11 @@ def looper():
             if(command[0] == "movt"):
                 publish = createMsg(command[1],command[1],
                                     command[2],command[2],
-                                    command[3],command[3])
+                                    command[3],command[3]) 
+            if(command[0] == "rott"):
+                publish = createMsg(int(command[1]),180-int(command[1]),
+                                    int(command[2]),180-int(command[2]),
+                                    int(command[3]),180-int(command[3]))
             elif ( command[0] == "stop" or command[0] == "pause"):
                 publish = createMsg(0,0,0,0,0,0)
             #rospy.loginfo(command)
@@ -63,9 +67,11 @@ def looper():
         
         #Publish 'Next' command To advance the queue
         #If the time is passed the duration
-	split_message = message.split()
+        split_message = message.split()
         if(time.time()-current_time >= float(split_message[4])):
-            if(split_message[0] == "movt" or split_message[0] == "pause"):
+            if(split_message[0] == "movt" or 
+                        split_message[0] == "rott" or
+                        split_message[0] == "pause"):
                 talker("next",0,0,0,0)
 
         #Publish the command to the motors 
