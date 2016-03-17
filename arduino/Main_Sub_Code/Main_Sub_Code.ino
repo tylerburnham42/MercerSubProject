@@ -17,7 +17,7 @@ Servo zTopServo;
 Servo zBottomServo;
 
 void messageCb( const sub_message::arduino_msg& sub_message){
-  String message = String(sub_message.xLeft);
+  String message = String(sub_message.yBack);
 
   xLeftServo.write(sub_message.xLeft);
   xRightServo.write(sub_message.xRight);
