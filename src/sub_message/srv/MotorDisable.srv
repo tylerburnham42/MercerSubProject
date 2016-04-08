@@ -1,0 +1,8 @@
+bool xLeft
+bool xRight
+bool yFront
+bool yBack
+bool zTop
+bool zBottom
+---
+string responce

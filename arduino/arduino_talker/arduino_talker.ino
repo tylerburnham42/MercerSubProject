@@ -45,6 +45,7 @@ void setup()
   nh.initNode();
   nh.subscribe(sub);
   nh.advertise(chatter);
+  nh.getHardware()->setBaud(57600);
 }
 
 void loop()
