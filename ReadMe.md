@@ -7,7 +7,7 @@ The purpose of this project is to construct a fully autonomous ROV (Remotely Ope
 ## Getting Started
 The following is an abbreviated install procedure. See the wiki page for the full procedure. 
 
-### Prerequisities
+### Prerequisites
 The following is a list of the software needed to install and run the code.   
 1. Laptop - Kubuntu  Trusty (14.04)  
 2. Raspberry PI 2 - Ubuntu 14.04 LTS for ARM  
