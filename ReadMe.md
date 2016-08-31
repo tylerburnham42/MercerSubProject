@@ -2,22 +2,22 @@
 This is a repository to host the ROS code that is used to operate the ROV. A team of Tyler Burnham and Andrew Buff worked on the code to change it into ROS in the Spring of 2016. It now operates on a laptop and a Raspberry Pi.  
 
 ## Background on the Project
-The purpose of this project is to construct a fully autonomous ROV (Remotely Operated Vehicle) that can be used for underwater surveillance. ROVs have the potential to serve a large role in underwater exploration and surveillance. Human undersea exploration and surveillance can be a very dangerous activity. A variety of factors can cause an underwater environment to be dangerous to a human diver, including water pressure, insufficient supply of oxygen, and hostile wildlife. Currently, modern ROVs are being used to provide safer alternatives. ROVs can fit in smaller and more dangerous places that are unsuitable for humans. This project is intended as one of Mercerís first steps toward an underwater autonomous platform.
+The purpose of this project is to construct a fully autonomous ROV (Remotely Operated Vehicle) that can be used for underwater surveillance. ROVs have the potential to serve a large role in underwater exploration and surveillance. Human undersea exploration and surveillance can be a very dangerous activity. A variety of factors can cause an underwater environment to be dangerous to a human diver, including water pressure, insufficient supply of oxygen, and hostile wildlife. Currently, modern ROVs are being used to provide safer alternatives. ROVs can fit in smaller and more dangerous places that are unsuitable for humans. This project is intended as one of Mercer‚Äôs first steps toward an underwater autonomous platform.
 
 ## Getting Started
 The following is an abbreviated install procedure. See the wiki page for the full procedure. 
 
 ### Prerequisities
-The following is a list of the software needed to install and run the code. 
-1. Laptop - Kubuntu  Trusty (14.04)
-2. Raspberry PI 2 - Ubuntu 14.04 LTS for ARM
-4. ROS - Jade Turtle
-6. Rosserial
-7. Rosserial - Version 0.7.1
-8. Rosserial_Python - Version 0.7.1
-9. Rosserial_Arduino - Version 0.7.1
-10. ROS OpenCV - Version 3.1
-11. ROS BridgeCV - Version 1.11.12
+The following is a list of the software needed to install and run the code.   
+1. Laptop - Kubuntu  Trusty (14.04)  
+2. Raspberry PI 2 - Ubuntu 14.04 LTS for ARM  
+4. ROS - Jade Turtle  
+6. Rosserial  
+7. Rosserial - Version 0.7.1  
+8. Rosserial_Python - Version 0.7.1  
+9. Rosserial_Arduino - Version 0.7.1  
+10. ROS OpenCV - Version 3.1  
+11. ROS BridgeCV - Version 1.11.12  
 
 The following software is not required but was used in the installation and deployment of the code. 
 1. SSH Server
@@ -84,7 +84,7 @@ Run the following commands:
 sudo apt-get update
 sudo apt-get dist-upgrade
 ```
-If asked type ìYî to complete the installation
+If asked type ‚ÄúY‚Äù to complete the installation
 
 ## Contributing
 
