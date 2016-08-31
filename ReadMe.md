@@ -1,5 +1,9 @@
 # Mercer University Semi-Autonomous Sub Project 
-This is a repository to host the ROS code that is used to operate the ROV. A team of Tyler Burnham and Andrew Buff worked on the code to change it into ROS in the Spring of 2016. It now operates on a laptop and a Raspberry Pi.  
+This is a repository to host the ROS code that is used to operate the ROV. A team of Tyler Burnham and Andrew Buff worked on the code to change it into ROS in the Spring of 2016. It now operates on a laptop and a Raspberry Pi. The code runs with four seperate ros nodes. Talker sends commands to listener which is the command queue. Commander reads messages off of listener and sends the correct movement values to the arduino. 
+
+![alt tag](https://github.com/tylerburnham42/MercerSubProject/blob/ReadMe/GitHub%20Resources/code_flow_example.png)
+
+
 
 ## Background on the Project
 The purpose of this project is to construct a fully autonomous ROV (Remotely Operated Vehicle) that can be used for underwater surveillance. ROVs have the potential to serve a large role in underwater exploration and surveillance. Human undersea exploration and surveillance can be a very dangerous activity. A variety of factors can cause an underwater environment to be dangerous to a human diver, including water pressure, insufficient supply of oxygen, and hostile wildlife. Currently, modern ROVs are being used to provide safer alternatives. ROVs can fit in smaller and more dangerous places that are unsuitable for humans. This project is intended as one of Mercer’s first steps toward an underwater autonomous platform.
