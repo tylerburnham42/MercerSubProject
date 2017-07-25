@@ -1,7 +1,7 @@
 # Mercer University Semi-Autonomous Sub Project 
 This is a repository to host the ROS code that is used to operate the ROV. A team of Tyler Burnham and Andrew Buff worked on the code to change it into ROS in the Spring of 2016. It now operates on a laptop and a Raspberry Pi. The code runs with four seperate ros nodes. Talker sends commands to listener which is the command queue. Commander reads messages off of listener and sends the correct movement values to the arduino. 
 
-![alt tag](GitHub Resources/code_flow_example.png)
+![alt tag](/GitHub Resources/code_flow_example.png)
 
 
 
